@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace Sokoban
 {
@@ -22,6 +23,12 @@ namespace Sokoban
         public Sprite(Texture2D texture)
         {
             _texture = texture;
+        }
+
+        public virtual void Update(GameTime gameTime, List<Sprite> sprites) { }
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(_texture, Position, Color);
         }
         public bool IsTouchingLeft(Sprite sprite)
         {
