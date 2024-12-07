@@ -6,6 +6,8 @@ namespace Sokoban
 {
     public class Game1 : Game
     {
+        Texture2D boxTexture;
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -27,6 +29,7 @@ namespace Sokoban
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            boxTexture = Content.Load<Texture2D>("box");
             // TODO: use this.Content to load your game content here
         }
 
@@ -43,6 +46,11 @@ namespace Sokoban
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(boxTexture, new Vector2(0,0), Color.AliceBlue);
+            _spriteBatch.End();
+
 
             // TODO: Add your drawing code here
 
