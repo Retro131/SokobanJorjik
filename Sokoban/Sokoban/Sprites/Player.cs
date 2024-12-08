@@ -9,7 +9,7 @@ namespace Sokoban
     {
         private InputHandler controlKeys = new InputHandler();
 
-        public Player(Texture2D texture, Vector2 position, Color color, float speed, float weight) : base(texture, position, color, speed, weight) { }
+        public Player(Texture2D texture, Vector2 position, Color color) : base(texture, position, color) { }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
@@ -21,12 +21,6 @@ namespace Sokoban
             {
                 if (sprite == this)
                     continue;
-                if (Velocity.X > 0 && IsTouchingLeft(sprite) ||
-                        Velocity.X < 0 && IsTouchingRight(sprite))
-                    Velocity.X = sprite.Velocity.X = Velocity.X * CalculateForPushingObjects(sprite);
-                if (Velocity.Y > 0 && IsTouchingTop(sprite) ||
-                        Velocity.Y < 0 && IsTouchingBottom(sprite))
-                    Velocity.Y = sprite.Velocity.Y = Velocity.Y * CalculateForPushingObjects(sprite);
             }
         }
 
@@ -41,18 +35,6 @@ namespace Sokoban
                 Position.Y -= SpriteSize;
             else if (controlKeys.IsKeyWasPressed(Keys.S))
                 Position.Y += SpriteSize;
-        }
-        private float CalculateForPushingObjects(Sprite sprite)
-        {
-            if(sprite.Weight == 0)
-            {
-                return 1;
-            }
-            else if (sprite.Weight < 0)
-            {
-                return 0f;
-            }
-            return Weight/sprite.Weight;
         }
         private bool CanMove(Sprite sprite)
         {

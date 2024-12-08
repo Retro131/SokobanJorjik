@@ -10,7 +10,7 @@ namespace Sokoban
 {
     public class Target : Sprite
     {
-        public Target(Texture2D texture, Vector2 position, Color color, float speed, float weight) : base(texture, position, color, speed, weight) { }
+        public Target(Texture2D texture, Vector2 position, Color color) : base(texture, position, color) { }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
