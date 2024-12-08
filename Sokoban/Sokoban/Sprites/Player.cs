@@ -7,7 +7,7 @@ namespace Sokoban
 {
     public class Player : Sprite
     {
-        public Player(Texture2D texture, Vector2 position, Color color, float speed) : base(texture, position, color, speed) { }
+        public Player(Texture2D texture, Vector2 position, Color color, float speed, float weight) : base(texture, position, color, speed, weight) { }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
@@ -19,12 +19,12 @@ namespace Sokoban
             {
                 if (sprite == this)
                     continue;
-                if(Velocity.X > 0 && IsTouchingLeft(sprite) ||
+                if (Velocity.X > 0 && IsTouchingLeft(sprite) ||
                         Velocity.X < 0 && IsTouchingRight(sprite))
-                    Velocity.X = 0;
-                if(Velocity.Y >  0 && IsTouchingTop(sprite) ||
+                    Velocity.X = sprite.Velocity.X = Velocity.X * CalculateForPushingObjects(sprite);
+                if (Velocity.Y > 0 && IsTouchingTop(sprite) ||
                         Velocity.Y < 0 && IsTouchingBottom(sprite))
-                    Velocity.Y = 0;
+                    Velocity.Y = sprite.Velocity.Y = Velocity.Y * CalculateForPushingObjects(sprite);
             }
             Position += Velocity;
             Velocity = Vector2.Zero;
@@ -33,13 +33,25 @@ namespace Sokoban
         public void Move()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.A))
-                Velocity.X -= speed;
+                Velocity.X -= Speed;
             else if (Keyboard.GetState().IsKeyDown(Keys.D))
-                Velocity.X += speed;
+                Velocity.X += Speed;
             else if (Keyboard.GetState().IsKeyDown(Keys.W))
-                Velocity.Y -= speed;
+                Velocity.Y -= Speed;
             else if (Keyboard.GetState().IsKeyDown(Keys.S))
-                Velocity.Y += speed;
+                Velocity.Y += Speed;
+        }
+        private float CalculateForPushingObjects(Sprite sprite)
+        {
+            if(sprite.Weight == 0)
+            {
+                return 1;
+            }
+            else if (sprite.Weight < 0)
+            {
+                return 0f;
+            }
+            return Weight/sprite.Weight;
         }
         public override float GetPriority() => 0.1f;
         public override string ToString() => "Player.png";
