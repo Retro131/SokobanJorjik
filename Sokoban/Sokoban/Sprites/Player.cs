@@ -6,9 +6,7 @@ namespace Sokoban
 {
     public class Player : Sprite
     {
-        public Player(Texture2D texture) : base(texture)
-        {
-        }
+        public Player(Texture2D texture, Vector2 position, Color color, float speed) : base(texture, position, color, speed) { }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);

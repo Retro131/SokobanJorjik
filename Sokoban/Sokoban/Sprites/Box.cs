@@ -6,7 +6,7 @@ namespace Sokoban
 {
     public class Box : Sprite
     {
-        public Box(Texture2D texture) : base(texture) { }
+        public Box(Texture2D texture, Vector2 position, Color color, float speed) : base(texture, position, color, speed) { }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
