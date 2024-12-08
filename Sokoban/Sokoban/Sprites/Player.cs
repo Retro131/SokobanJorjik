@@ -16,25 +16,34 @@ namespace Sokoban
         }
         public override void Update(GameTime gameTime, List<Sprite> sprites)
         {
-            Move();
+            var newPos = Move();
+            var canMove = true;
             foreach (var sprite in sprites)
             {
                 if (sprite == this)
                     continue;
+                if (IsCollision(newPos, sprite))
+                {
+                    canMove = false;
+                    break;
+                }
             }
+            Position = canMove ? newPos : Position;
         }
 
-        public void Move()
+        public Vector2 Move()
         {
+            var newPos = Position;
             controlKeys.Update();
             if (controlKeys.IsKeyWasPressed(Keys.A))
-                Position.X -= SpriteSize;
+                newPos.X -= SpriteSize;
             else if (controlKeys.IsKeyWasPressed(Keys.D))
-                Position.X += SpriteSize;
+                newPos.X += SpriteSize;
             else if (controlKeys.IsKeyWasPressed(Keys.W))
-                Position.Y -= SpriteSize;
+                newPos.Y -= SpriteSize;
             else if (controlKeys.IsKeyWasPressed(Keys.S))
-                Position.Y += SpriteSize;
+                newPos.Y += SpriteSize;
+            return newPos;
         }
         private bool CanMove(Sprite sprite)
         {

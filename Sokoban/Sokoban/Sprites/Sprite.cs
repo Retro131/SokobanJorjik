@@ -22,6 +22,7 @@ namespace Sokoban
         {
             Position = position;
             Color = color;
+            _texture = texture;
         }
 
         public virtual void Update(GameTime gameTime, List<Sprite> sprites) { }
@@ -32,37 +33,9 @@ namespace Sokoban
         public virtual float GetPriority() => 0;
         public bool IsCollision(Vector2 newPosition, Sprite other)
         {
-            var newRectangle = new Rectangle((int)newPosition.X, (int)newPosition.Y, SpriteSize, SpriteSize);
+            var newHitboX = new Rectangle((int)newPosition.X, (int)newPosition.Y, SpriteSize, SpriteSize);
 
-            return newRectangle.Intersects(other.HitBox);
-        }
-        public bool IsTouchingLeft(Sprite sprite)
-        {
-            return this.HitBox.Right + this.Velocity.X > sprite.HitBox.Left &&
-                this.HitBox.Left < sprite.HitBox.Left &&
-                this.HitBox.Bottom > sprite.HitBox.Top &&
-                this.HitBox.Top < sprite.HitBox.Bottom;
-        }
-        public bool IsTouchingRight(Sprite sprite)
-        {
-            return this.HitBox.Left + this.Velocity.X < sprite.HitBox.Right &&
-                this.HitBox.Right > sprite.HitBox.Right &&
-                this.HitBox.Bottom > sprite.HitBox.Top &&
-                this.HitBox.Top < sprite.HitBox.Bottom;
-        }
-        public bool IsTouchingTop(Sprite sprite)
-        {
-            return this.HitBox.Bottom + this.Velocity.Y > sprite.HitBox.Top &&
-                this.HitBox.Top < sprite.HitBox.Top &&
-                this.HitBox.Right > sprite.HitBox.Left &&
-                this.HitBox.Left < sprite.HitBox.Right;
-        }
-        public bool IsTouchingBottom(Sprite sprite)
-        {
-            return this.HitBox.Top + this.Velocity.Y < sprite.HitBox.Bottom &&
-                this.HitBox.Bottom > sprite.HitBox.Bottom &&
-                this.HitBox.Right > sprite.HitBox.Left &&
-                this.HitBox.Left < sprite.HitBox.Right;
+            return newHitboX.Intersects(other.HitBox);
         }
     }
 }
