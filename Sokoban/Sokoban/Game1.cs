@@ -13,7 +13,7 @@ namespace Sokoban
         private List<Sprite> _sprites;
 
         private Texture2D _backgroundTexture;
-
+        private bool _isFinished;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -52,7 +52,13 @@ namespace Sokoban
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             foreach (var sprite in _sprites)
+            {
                 sprite.Update(gameTime, _sprites);
+                if(sprite is Box)
+                {
+                    //if (sprite.IsOnTarget());
+                }
+            }
             // TODO: Add your update logic here
 
             base.Update(gameTime);

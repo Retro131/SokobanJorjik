@@ -32,7 +32,7 @@ namespace Sokoban
             Position = newPos;
             return true;
         }
-        private bool IsOnTarget(List<Sprite> sprites)
+        public override bool IsOnTarget(List<Sprite> sprites)
         {
             foreach(var sprite in sprites)
             {

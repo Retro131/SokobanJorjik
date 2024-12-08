@@ -44,6 +44,10 @@ namespace Sokoban
         {
             spriteBatch.Draw(_texture, Position, null, Color, 0, Vector2.Zero, 1.1f, SpriteEffects.None, GetPriority());
         }
+        public virtual bool IsOnTarget(List<Sprite> sprites)
+        {
+            return false;
+        }
         public virtual float GetPriority() => 0;
         public bool IsCollision(Vector2 newPosition, Sprite other)
         {
