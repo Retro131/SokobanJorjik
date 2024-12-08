@@ -6,6 +6,7 @@ namespace Sokoban
 {
     public class Box : Sprite
     {
+        private bool _isMoveable = true;
         public Box(Texture2D texture, Vector2 position, Color color) : base(texture, position, color) { }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -13,24 +14,34 @@ namespace Sokoban
         }
         public override void Update(GameTime gameTime, List<Sprite> sprites)
         {
-            foreach (var sprite in sprites)
-            {
-                if (sprite == this)
-                    continue;
-            }
+            if (IsOnTarget(sprites))
+                _isMoveable = false;
         }
         public override bool TryMove(Vector2 Delta, List<Sprite> sprites)
         {
+            if (!_isMoveable)
+                return false;
             var newPos = Delta + Position;
             foreach (var sprite in sprites)
             {
-                if (sprite == this)
+                if (sprite == this || sprite is Target)
                     continue;
                 if (IsCollision(newPos, sprite))
                     return false;
             }
             Position = newPos;
             return true;
+        }
+        private bool IsOnTarget(List<Sprite> sprites)
+        {
+            foreach(var sprite in sprites)
+            {
+                if (sprite == this)
+                    continue;
+                if (IsCollision(Position,sprite) && sprite is Target)
+                    return true;
+            }
+            return false;
         }
         public override float GetPriority() => 0.2f;
         public override string ToString() => "Box.png";

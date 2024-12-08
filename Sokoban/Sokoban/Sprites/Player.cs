@@ -29,7 +29,7 @@ namespace Sokoban
         {
             foreach (var sprite in sprites)
             {
-                if (sprite == this)
+                if (sprite == this || sprite is Target)
                     continue;
                 if (IsCollision(newPos, sprite))
                 {
