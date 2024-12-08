@@ -6,7 +6,7 @@ namespace Sokoban
 {
     public class Sprite
     {
-        public Texture2D _texture { get; }
+        protected Texture2D _texture { get; }
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
         public Color Color { get; set; }
@@ -20,16 +20,20 @@ namespace Sokoban
             }
         }
 
-        public Sprite(Texture2D texture)
+        public Sprite(Texture2D texture, Vector2 position, Color color, float speed)
         {
+            Position = position;
+            Color = color;
+            this.speed = speed;
             _texture = texture;
         }
 
         public virtual void Update(GameTime gameTime, List<Sprite> sprites) { }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Position, Color);
+            spriteBatch.Draw(_texture, Position, null, Color, 0, Vector2.Zero, 1, SpriteEffects.None, GetPriority());
         }
+        public virtual float GetPriority() => 0;
         public bool IsTouchingLeft(Sprite sprite)
         {
             return this.Rectangle.Right + this.Velocity.X > sprite.Rectangle.Left &&
