@@ -7,6 +7,8 @@ namespace Sokoban
 {
     public class Player : Sprite
     {
+        public bool IsMoving;
+
         private InputHandler controlKeys = new InputHandler();
 
         public Player(Texture2D texture, Vector2 position, Color color) : base(texture, position, color) { }
@@ -16,22 +18,36 @@ namespace Sokoban
         }
         public override void Update(GameTime gameTime, List<Sprite> sprites)
         {
-            var newPos = Move();
-            var canMove = true;
+            var newPos = GetNewPosition();
+
+            if (TryMove(newPos, sprites))
+            {
+                Position = newPos;
+            }
+        }
+        public override bool TryMove(Vector2 newPos, List<Sprite> sprites)
+        {
             foreach (var sprite in sprites)
             {
                 if (sprite == this)
                     continue;
                 if (IsCollision(newPos, sprite))
                 {
-                    canMove = false;
-                    break;
+                    if (sprite is Box)
+                    {
+                        var deltaMove = newPos - Position;
+                        if (sprite.TryMove(deltaMove, sprites))
+                            return true;
+                        else
+                            return false;
+                    }
+                    else
+                        return false;
                 }
             }
-            Position = canMove ? newPos : Position;
+            return true;
         }
-
-        public Vector2 Move()
+        private Vector2 GetNewPosition()
         {
             var newPos = Position;
             controlKeys.Update();
@@ -45,6 +61,7 @@ namespace Sokoban
                 newPos.Y += SpriteSize;
             return newPos;
         }
+
         private bool CanMove(Sprite sprite)
         {
             return sprite is Box;

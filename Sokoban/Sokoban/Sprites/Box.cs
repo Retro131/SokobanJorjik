@@ -19,6 +19,19 @@ namespace Sokoban
                     continue;
             }
         }
+        public override bool TryMove(Vector2 Delta, List<Sprite> sprites)
+        {
+            var newPos = Delta + Position;
+            foreach (var sprite in sprites)
+            {
+                if (sprite == this)
+                    continue;
+                if (IsCollision(newPos, sprite))
+                    return false;
+            }
+            Position = newPos;
+            return true;
+        }
         public override float GetPriority() => 0.2f;
         public override string ToString() => "Box.png";
 
