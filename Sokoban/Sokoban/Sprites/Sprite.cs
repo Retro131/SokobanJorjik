@@ -8,10 +8,10 @@ namespace Sokoban
     {
         protected Texture2D _texture { get; }
         public Vector2 Position { get; set; }
-        public Vector2 Velocity { get; set; }
+        public Vector2 Velocity;
         public Color Color { get; set; }
-        public float speed { get; set; }
-
+        public float Speed { get; set; }
+        public float Weight {  get; set; }
         public Rectangle Rectangle
         {
             get
@@ -20,12 +20,13 @@ namespace Sokoban
             }
         }
 
-        public Sprite(Texture2D texture, Vector2 position, Color color, float speed)
+        public Sprite(Texture2D texture, Vector2 position, Color color, float speed, float weight)
         {
             Position = position;
             Color = color;
-            this.speed = speed;
+            this.Speed = speed;
             _texture = texture;
+            Weight = weight;
         }
 
         public virtual void Update(GameTime gameTime, List<Sprite> sprites) { }
