@@ -1,16 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sokoban
 {
     public class Wall : Sprite
     {
-        public Wall(Texture2D texture) : base(texture) { }
+        public Wall(Texture2D texture, Vector2 position, Color color) : base(texture, position, color) { }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
@@ -19,5 +15,7 @@ namespace Sokoban
         {
             base.Update(gameTime, sprites);
         }
+        public override float GetPriority() => 0.5f;
+        public override string ToString() => "Wall.png";
     }
 }
