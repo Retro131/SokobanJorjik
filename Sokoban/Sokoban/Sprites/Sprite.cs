@@ -24,7 +24,21 @@ namespace Sokoban
             Color = color;
             _texture = texture;
         }
-
+        public virtual bool TryMove(Vector2 newPos, List<Sprite> sprites)
+        {
+            var canMove = true;
+            foreach (var sprite in sprites)
+            {
+                if (sprite == this)
+                    continue;
+                if (IsCollision(newPos, sprite))
+                {
+                    canMove = false;
+                    break;
+                }
+            }
+            return canMove;
+        }
         public virtual void Update(GameTime gameTime, List<Sprite> sprites) { }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
@@ -33,9 +47,9 @@ namespace Sokoban
         public virtual float GetPriority() => 0;
         public bool IsCollision(Vector2 newPosition, Sprite other)
         {
-            var newHitboX = new Rectangle((int)newPosition.X, (int)newPosition.Y, SpriteSize, SpriteSize);
+            var newHitBox = new Rectangle((int)newPosition.X, (int)newPosition.Y, SpriteSize, SpriteSize);
 
-            return newHitboX.Intersects(other.HitBox);
+            return newHitBox.Intersects(other.HitBox);
         }
     }
 }
