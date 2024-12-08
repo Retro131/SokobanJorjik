@@ -15,6 +15,7 @@ namespace Sokoban
         {
             base.Update(gameTime, sprites);
         }
+        public override float GetPriority() => 0.2f;
         public override string ToString() => "Box.png";
 
     }
