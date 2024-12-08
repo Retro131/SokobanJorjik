@@ -19,5 +19,6 @@ namespace Sokoban
         {
             base.Update(gameTime, sprites);
         }
+        public override string ToString() => "Target.png";
     }
 }
