@@ -12,7 +12,7 @@ using System.Net;
 
 namespace Sokoban
 {
-    public class State
+    public abstract class State
     {
         protected ContentManager _contentManager;
         protected GraphicsDevice _graphics;
@@ -24,7 +24,11 @@ namespace Sokoban
             _graphics = graphics;
             _game = game;
         }
-        public virtual void Draw(GameTime gameTime,SpriteBatch spriteBatch) { }
-        public virtual void Update(GameTime gameTime) { }
+        public virtual void LoadContent()
+        {
+
+        }
+        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        public abstract void Update(GameTime gameTime);
     }
 }

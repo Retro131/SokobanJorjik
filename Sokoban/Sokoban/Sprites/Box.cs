@@ -15,7 +15,10 @@ namespace Sokoban
         public override void Update(GameTime gameTime, List<Sprite> sprites)
         {
             if (IsOnTarget(sprites))
+            {
                 _isMoveable = false;
+                Color = Color.Gray;
+            }
         }
         public override bool TryMove(Vector2 Delta, List<Sprite> sprites)
         {

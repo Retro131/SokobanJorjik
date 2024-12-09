@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
 
 namespace Sokoban
 {
@@ -10,15 +8,10 @@ namespace Sokoban
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private List<Sprite> _sprites;
-
         private State _currentState;
         private State _nextState;
 
-        public MouseState MouseState;
-
         private Texture2D _backgroundTexture;
-        private bool _isFinished;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -31,7 +24,7 @@ namespace Sokoban
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            _graphics.PreferredBackBufferWidth = 1440;
+            _graphics.PreferredBackBufferWidth = 1450;
             _graphics.PreferredBackBufferHeight = 700;
             _graphics.ApplyChanges();
             base.Initialize();
@@ -44,34 +37,14 @@ namespace Sokoban
 
             _currentState = new MenuState(this, Content, _graphics.GraphicsDevice);
 
-            //var boxTexture = Content.Load<Texture2D>("Box");
-            //var playerTexture = Content.Load<Texture2D>("Player");
-            //var targetTexture = Content.Load<Texture2D>("Target");
-            //var wallTexture = Content.Load<Texture2D>("Wall");
-            //_sprites = new List<Sprite>()
-            //{
-            //    new Player(playerTexture, new Vector2(100, 100),Color.White),
-            //    new Box(boxTexture, new Vector2(100, 200),Color.White),
-            //    new Wall(wallTexture, new Vector2(200, 200),Color.White),
-            //    new Target(targetTexture, new Vector2(0, 200),Color.White),
-            //};
+            
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
-            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            //    Exit();
-            //foreach (var sprite in _sprites)
-            //{
-            //    sprite.Update(gameTime, _sprites);
-            //    if(sprite is Box)
-            //    {
-            //        //if (sprite.IsOnTarget());
-            //    }
-            //}
             //// TODO: Add your update logic here
-            if(_nextState != null)
+            if (_nextState != null)
             {
                 _currentState = _nextState;
                 _nextState = null;
