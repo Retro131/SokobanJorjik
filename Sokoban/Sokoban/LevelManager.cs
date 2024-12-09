@@ -1,22 +1,21 @@
-﻿using Microsoft.Xna.Framework.Input;
-using System;
+﻿using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sokoban
 {
     public class LevelManager
     {
-        public static readonly List<Level> DefaultLevels;
-        public List<Level> PlayerLevels;
-        static LevelManager()
+        public LinkedList<Level> Levels;
+        public LevelManager(ContentManager contentManager)
         {
-            DefaultLevels = new List<Level>()
+            var index = 0;
+            Levels = new LinkedList<Level>();
+            foreach (var level in DefaultLevelsInGrid.MapsForLevels)
             {
-
-            };
+                Levels.AddLast(new Level(index, level,contentManager));
+                index++;
+            }
         }
         public void AddLevel() { }
         public void RemoveLevel() { }
