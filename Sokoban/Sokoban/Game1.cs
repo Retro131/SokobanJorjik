@@ -12,6 +12,8 @@ namespace Sokoban
 
         private List<Sprite> _sprites;
 
+        public MouseState MouseState;
+
         private Texture2D _backgroundTexture;
         private bool _isFinished;
         public Game1()
@@ -24,7 +26,9 @@ namespace Sokoban
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            _graphics.PreferredBackBufferWidth = 1440;
+            _graphics.PreferredBackBufferHeight = 700;
+            _graphics.ApplyChanges();
             base.Initialize();
         }
 
@@ -37,13 +41,13 @@ namespace Sokoban
             var playerTexture = Content.Load<Texture2D>("Player");
             var targetTexture = Content.Load<Texture2D>("Target");
             var wallTexture = Content.Load<Texture2D>("Wall");
-            _sprites = new List<Sprite>()
-            {
-                new Player(playerTexture, new Vector2(100, 100),Color.White),
-                new Box(boxTexture, new Vector2(100, 200),Color.White),
-                new Wall(wallTexture, new Vector2(200, 200),Color.White),
-                new Target(targetTexture, new Vector2(0, 200),Color.White),
-            };
+            //_sprites = new List<Sprite>()
+            //{
+            //    new Player(playerTexture, new Vector2(100, 100),Color.White),
+            //    new Box(boxTexture, new Vector2(100, 200),Color.White),
+            //    new Wall(wallTexture, new Vector2(200, 200),Color.White),
+            //    new Target(targetTexture, new Vector2(0, 200),Color.White),
+            //};
             // TODO: use this.Content to load your game content here
         }
 
@@ -69,11 +73,13 @@ namespace Sokoban
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(SpriteSortMode.BackToFront);
+            
+            for(int i = 0;i < 3; i++)
+            {
+                for (int j = 0; j < 6; j++)
+                    _spriteBatch.Draw(_backgroundTexture, new Vector2(j * _backgroundTexture.Width * 0.5f,i * _backgroundTexture.Width * 0.5f), null, Color.White, 0, Vector2.Zero, 0.8f, SpriteEffects.None, 1);
 
-            for (int i = 0; i < 12; i++)
-                _spriteBatch.Draw(_backgroundTexture, new Vector2(i * _backgroundTexture.Width*0.5f, 0), null, Color.White, 0, Vector2.Zero, 0.8f, SpriteEffects.None, 1);
-            for (int i = 0; i < 12; i++)
-                _spriteBatch.Draw(_backgroundTexture, new Vector2(i * _backgroundTexture.Width * 0.5f,_backgroundTexture.Width * 0.5f), null, Color.White, 0, Vector2.Zero, 0.8f, SpriteEffects.None, 1);
+            }
             foreach (var sprite in _sprites)
                 sprite.Draw(_spriteBatch);
             _spriteBatch.End();
