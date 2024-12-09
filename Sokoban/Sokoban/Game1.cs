@@ -12,6 +12,9 @@ namespace Sokoban
 
         private List<Sprite> _sprites;
 
+        private State _currentState;
+        private State _nextState;
+
         public MouseState MouseState;
 
         private Texture2D _backgroundTexture;
@@ -22,6 +25,8 @@ namespace Sokoban
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
+
+        public void ChangeState(State state) => _nextState = state;
 
         protected override void Initialize()
         {
@@ -37,10 +42,12 @@ namespace Sokoban
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _backgroundTexture = Content.Load<Texture2D>("Background");
 
-            var boxTexture = Content.Load<Texture2D>("Box");
-            var playerTexture = Content.Load<Texture2D>("Player");
-            var targetTexture = Content.Load<Texture2D>("Target");
-            var wallTexture = Content.Load<Texture2D>("Wall");
+            _currentState = new MenuState(this, Content, _graphics.GraphicsDevice);
+
+            //var boxTexture = Content.Load<Texture2D>("Box");
+            //var playerTexture = Content.Load<Texture2D>("Player");
+            //var targetTexture = Content.Load<Texture2D>("Target");
+            //var wallTexture = Content.Load<Texture2D>("Wall");
             //_sprites = new List<Sprite>()
             //{
             //    new Player(playerTexture, new Vector2(100, 100),Color.White),
@@ -53,35 +60,41 @@ namespace Sokoban
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-            foreach (var sprite in _sprites)
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            //    Exit();
+            //foreach (var sprite in _sprites)
+            //{
+            //    sprite.Update(gameTime, _sprites);
+            //    if(sprite is Box)
+            //    {
+            //        //if (sprite.IsOnTarget());
+            //    }
+            //}
+            //// TODO: Add your update logic here
+            if(_nextState != null)
             {
-                sprite.Update(gameTime, _sprites);
-                if(sprite is Box)
-                {
-                    //if (sprite.IsOnTarget());
-                }
+                _currentState = _nextState;
+                _nextState = null;
             }
-            // TODO: Add your update logic here
-
+            _currentState.Update(gameTime);
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            //GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(SpriteSortMode.BackToFront);
-            
-            for(int i = 0;i < 3; i++)
+
+            for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 6; j++)
-                    _spriteBatch.Draw(_backgroundTexture, new Vector2(j * _backgroundTexture.Width * 0.5f,i * _backgroundTexture.Width * 0.5f), null, Color.White, 0, Vector2.Zero, 0.8f, SpriteEffects.None, 1);
+                    _spriteBatch.Draw(_backgroundTexture, new Vector2(j * _backgroundTexture.Width * 0.5f, i * _backgroundTexture.Width * 0.5f), null, Color.White, 0, Vector2.Zero, 0.8f, SpriteEffects.None, 1);
 
             }
-            foreach (var sprite in _sprites)
-                sprite.Draw(_spriteBatch);
+            _currentState.Draw(gameTime, _spriteBatch);
+            //foreach (var sprite in _sprites)
+            //    sprite.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);

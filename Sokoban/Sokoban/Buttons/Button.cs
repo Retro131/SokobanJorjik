@@ -23,11 +23,12 @@ namespace Sokoban
             }
         }
 
-        public Button(Texture2D texture, SpriteFont font, string text)
+        public Button(Texture2D texture, SpriteFont font, string text, Vector2 position)
         {
             _texture = texture;
             _font = font;
             Text = text;
+            Position = position;
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
