@@ -1,17 +1,18 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-namespace Sokoban
+namespace Sokoban.States
 {
-    public class CreateLevel : State
+    internal class LogInState : State
     {
         private List<Button> buttons;
-        public CreateLevel(Game1 game, ContentManager contentManager, GraphicsDevice graphics) : base(game, contentManager, graphics)
+        public LogInState(Game1 game, ContentManager contentManager, GraphicsDevice graphics) : base(game, contentManager, graphics)
         {
             LoadContent();
         }
@@ -19,22 +20,32 @@ namespace Sokoban
         {
             buttonTexture = _contentManager.Load<Texture2D>("ButtonContent/Button");
             buttonFont = _contentManager.Load<SpriteFont>("ButtonContent/ButtonFont");
-            var toMainMenu = CreateButton("Menu", new Vector2(10, 10));
+            var toMainMenu = CreateButton("Enter", new Vector2(650, 250));
+            string name = UserName.getInstance();
             toMainMenu.Click += ToMainMenu;
             buttons = new List<Button>()
             {
                 toMainMenu,
             };
         }
+
+        protected override void ToMainMenu(object sender, EventArgs e)
+        {
+            Game1.db.AddToDb();
+            base.ToMainMenu(sender, e);
+        }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.DrawString(buttonFont, "Sorry its not done yet, so only guests without name", new Vector2(550, 200), Color.Black);
             foreach (var button in buttons)
                 button.Draw(gameTime, spriteBatch);
         }
+
         public override void Update(GameTime gameTime)
         {
             foreach (var button in buttons)
                 button.Update(gameTime);
         }
+
     }
 }

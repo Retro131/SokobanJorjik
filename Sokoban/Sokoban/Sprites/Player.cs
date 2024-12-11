@@ -8,10 +8,12 @@ namespace Sokoban
     public class Player : Sprite
     {
         private Level _level;
+        private Vector2 _previousPosition;
         private InputHandler controlKeys = new InputHandler();
 
         public Player(Texture2D texture, Vector2 position, Color color, Level level) : base(texture, position, color)
         {
+            _previousPosition = position;
             _level = level;
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -21,10 +23,11 @@ namespace Sokoban
         public override void Update(GameTime gameTime, List<Sprite> sprites)
         {
             var newPos = GetNewPosition();
-            if (newPos != Position)
+            if (_previousPosition != Position)
                 _level.TotalSteps++;
             if (TryMove(newPos, sprites))
             {
+                _previousPosition = Position;
                 Position = newPos;
             }
         }
