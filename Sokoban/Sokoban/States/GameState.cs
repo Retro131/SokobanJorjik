@@ -16,10 +16,14 @@ namespace Sokoban
         private Level _currentLevel;
         private int fixedBoxes;
         private List<Button> buttons;
+
+
+        private Texture2D buttonTexture;
+        private SpriteFont buttonFont;
+
         public GameState(Game1 game, ContentManager contentManager, GraphicsDevice graphics) : base(game, contentManager, graphics)
         {
-            var buttonTexture = _contentManager.Load<Texture2D>("ButtonContent/Button");
-            var buttonFont = _contentManager.Load<SpriteFont>("ButtonContent/ButtonFont");
+            LoadContent();
             var skipLevel = new Button(buttonTexture, buttonFont, "Skip", new Vector2(100, 10));
             skipLevel.Click += SkipLevel;
             var toMainMenu = new Button(buttonTexture, buttonFont, "Menu", new Vector2(10, 10));
@@ -28,10 +32,11 @@ namespace Sokoban
             {
                 toMainMenu,skipLevel
             };
-            LoadContent();
         }
         public override void LoadContent()
         {
+            buttonTexture = _contentManager.Load<Texture2D>("ButtonContent/Button");
+            buttonFont = _contentManager.Load<SpriteFont>("ButtonContent/ButtonFont");
             _levelManager = new LevelManager(_contentManager);
             _currentNode = _levelManager.Levels.First;
             _currentLevel = _currentNode.Value;
@@ -43,6 +48,7 @@ namespace Sokoban
                 sprite.Draw(spriteBatch);
             foreach (var button in buttons)
                 button.Draw(gameTime, spriteBatch);
+            spriteBatch.DrawString(buttonFont, $"Steps: {_currentLevel.TotalSteps}", new Vector2(_graphics.Viewport.Width/2,100), Color.Red);
         }
         public override void Update(GameTime gameTime)
         {
