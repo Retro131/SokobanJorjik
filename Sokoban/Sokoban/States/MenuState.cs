@@ -17,13 +17,13 @@ namespace Sokoban
         {
             buttonTexture = _contentManager.Load<Texture2D>("ButtonContent/Button");
             buttonFont = _contentManager.Load<SpriteFont>("ButtonContent/ButtonFont");
-            var startGame = CreateBuuton("Start game", new Vector2(650, 250));
+            var startGame = CreateButton("Start game", new Vector2(650, 250));
             startGame.Click += StartGame;
-            var createLevel = CreateBuuton("Create level", new Vector2(650, 250 + 50));
+            var createLevel = CreateButton("Create level", new Vector2(650, 250 + 50));
             createLevel.Click += CreateLevel;
-            var resultButton = CreateBuuton("Results", new Vector2(650, 250 + 100));
+            var resultButton = CreateButton("Results", new Vector2(650, 250 + 100));
             resultButton.Click += Results;
-            var quit = CreateBuuton("Quit game", new Vector2(650, 250 + 150));
+            var quit = CreateButton("Quit game", new Vector2(650, 250 + 150));
             quit.Click += Quit;
             buttons = new List<Button>()
             {
@@ -35,7 +35,7 @@ namespace Sokoban
             foreach(var button in buttons)
                 button.Draw(gameTime, spriteBatch);
         }
-        public Button CreateBuuton(string Text, Vector2 Position)
+        public Button CreateButton(string Text, Vector2 Position)
         {
             return new Button(buttonTexture, buttonFont, Text, Position);
         }
@@ -54,7 +54,7 @@ namespace Sokoban
         }
         public void Results(object sender, EventArgs e)
         {
-            _game.ChangeState(new Results(_game, _contentManager, _graphics));
+            _game.ChangeState(new ResultsState(_game, _contentManager, _graphics));
         }
         public void Quit(object sender, EventArgs e)
         {

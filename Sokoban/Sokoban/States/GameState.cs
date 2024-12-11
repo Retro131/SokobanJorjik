@@ -84,10 +84,6 @@ namespace Sokoban
                 fixedBoxes = 0;
             }
         }
-        private void ToMainMenu(object sender, EventArgs e)
-        {
-            _game.ChangeState(new MenuState(_game, _contentManager, _graphics));
-        }
         private void SkipLevel(object sender, EventArgs e)
         {
             _currentLevel.IsFinished = true; fixedBoxes = 0;

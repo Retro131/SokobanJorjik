@@ -32,9 +32,5 @@ namespace Sokoban
             foreach (var button in buttons)
                 button.Update(gameTime);
         }
-        public void ToMainMenu(object sender, EventArgs e)
-        {
-            _game.ChangeState(new MenuState(_game, _contentManager, _graphics));
-        }
     }
 }
