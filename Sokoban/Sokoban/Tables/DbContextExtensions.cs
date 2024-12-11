@@ -4,7 +4,7 @@ namespace Sokoban
 {
     public static class DbContextExtensions
     {
-        public static void Add(this DBContext dBContext, Level level)
+        public static void AddToDb(this DBContext dBContext, Level level)
         {
             if(level.TotalSteps == 0)
             {
@@ -26,7 +26,7 @@ namespace Sokoban
             }
             dBContext.SaveChanges();
         }
-        public static void Add(this DBContext dBContext)
+        public static void AddToDb(this DBContext dBContext)
         {
             Users users = new Users();
             users.Name = UserName.getInstance();

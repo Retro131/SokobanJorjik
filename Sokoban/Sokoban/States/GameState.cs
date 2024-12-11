@@ -29,7 +29,6 @@ namespace Sokoban
             _currentNode = _levelManager.Levels.First;
             _currentLevel = _currentNode.Value;
             _sprites = _currentLevel.Sprites;
-
             var skipLevel = CreateButton("Skip", new Vector2(100, 10));
             skipLevel.Click += SkipLevel;
             var toMainMenu = CreateButton("Menu", new Vector2(10, 10));
@@ -59,6 +58,7 @@ namespace Sokoban
                 }
                 else
                 {
+                    Game1.db.AddToDb(_currentLevel);
                     _game.ChangeState(new MenuState(_game, _contentManager, _graphics));
                 }
             }
@@ -87,6 +87,8 @@ namespace Sokoban
         }
         private void ChangeLevel()
         {
+            Game1.db.AddToDb(_currentLevel);
+
             _sprites.Clear();
             _currentLevel = _currentNode.Next.Value;
             _currentNode = _currentNode.Next;

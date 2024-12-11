@@ -31,7 +31,7 @@ namespace Sokoban.States
 
         protected override void ToMainMenu(object sender, EventArgs e)
         {
-            Game1.db.Add();
+            Game1.db.AddToDb();
             base.ToMainMenu(sender, e);
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
