@@ -7,8 +7,6 @@ namespace Sokoban
 {
     public class Player : Sprite
     {
-        public bool IsMoving;
-
         private InputHandler controlKeys = new InputHandler();
 
         public Player(Texture2D texture, Vector2 position, Color color) : base(texture, position, color) { }

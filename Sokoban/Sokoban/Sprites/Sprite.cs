@@ -8,7 +8,7 @@ namespace Sokoban
     {
         public static int SpriteSize = 50;
         protected Texture2D _texture { get; }
-        public Vector2 Position;
+        public Vector2 Position {  get; set; }
         public Color Color { get; set; }
         public Rectangle HitBox
         {
