@@ -20,7 +20,7 @@ namespace Sokoban.States
         {
             buttonTexture = _contentManager.Load<Texture2D>("ButtonContent/Button");
             buttonFont = _contentManager.Load<SpriteFont>("ButtonContent/ButtonFont");
-            var toMainMenu = CreateButton("Enter", new Vector2(650, 250));
+            var toMainMenu = CreateButton("Enter", new Vector2(550, 250));
             string name = UserName.getInstance();
             toMainMenu.Click += ToMainMenu;
             buttons = new List<Button>()
