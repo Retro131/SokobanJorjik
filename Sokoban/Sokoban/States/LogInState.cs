@@ -20,7 +20,7 @@ namespace Sokoban.States
         {
             buttonTexture = _contentManager.Load<Texture2D>("ButtonContent/Button");
             buttonFont = _contentManager.Load<SpriteFont>("ButtonContent/ButtonFont");
-            var toMainMenu = CreateButton("Enter", new Vector2(550, 250));
+            var toMainMenu = CreateButton("Enter", new Vector2(650, 250));
             string name = UserName.getInstance();
             toMainMenu.Click += ToMainMenu;
             buttons = new List<Button>()
@@ -36,7 +36,7 @@ namespace Sokoban.States
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(buttonFont, "Sorry its not done, so only guests without name", new Vector2(650, 200), Color.Black);
+            spriteBatch.DrawString(buttonFont, "Sorry its not done yet, so only guests without name", new Vector2(550, 200), Color.Black);
             foreach (var button in buttons)
                 button.Draw(gameTime, spriteBatch);
         }
