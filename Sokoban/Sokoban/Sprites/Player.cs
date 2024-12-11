@@ -7,9 +7,13 @@ namespace Sokoban
 {
     public class Player : Sprite
     {
+        private Level _level;
         private InputHandler controlKeys = new InputHandler();
 
-        public Player(Texture2D texture, Vector2 position, Color color) : base(texture, position, color) { }
+        public Player(Texture2D texture, Vector2 position, Color color, Level level) : base(texture, position, color)
+        {
+            _level = level;
+        }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
@@ -17,7 +21,8 @@ namespace Sokoban
         public override void Update(GameTime gameTime, List<Sprite> sprites)
         {
             var newPos = GetNewPosition();
-
+            if (newPos != Position)
+                _level.TotalSteps++;
             if (TryMove(newPos, sprites))
             {
                 Position = newPos;
@@ -60,10 +65,6 @@ namespace Sokoban
             return newPos;
         }
 
-        private bool CanMove(Sprite sprite)
-        {
-            return sprite is Box;
-        }
         public override float GetPriority() => 0.1f;
         public override string ToString() => "Player.png";
 

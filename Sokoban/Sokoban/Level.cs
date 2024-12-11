@@ -7,6 +7,7 @@ namespace Sokoban
 {
     public class Level
     {
+        public int TotalSteps;
         Texture2D boxTexture;
         Texture2D playerTexture;
         Texture2D targetTexture;
@@ -62,7 +63,7 @@ namespace Sokoban
                     return new Box(boxTexture, position, Color.White);
 
                 case "P":
-                    return new Player(playerTexture, position, Color.White);
+                    return new Player(playerTexture, position, Color.White, this);
 
                 case "T":
                     TargetCount++;
