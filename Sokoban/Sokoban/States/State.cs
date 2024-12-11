@@ -32,7 +32,7 @@ namespace Sokoban
         }
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         public abstract void Update(GameTime gameTime);
-        protected void ToMainMenu(object sender, EventArgs e)
+        protected virtual void ToMainMenu(object sender, EventArgs e)
         {
             _game.ChangeState(new MenuState(_game, _contentManager, _graphics));
         }

@@ -26,10 +26,10 @@ namespace Sokoban
             }
             dBContext.SaveChanges();
         }
-        public static void Add(this DBContext dBContext, string name)
+        public static void Add(this DBContext dBContext)
         {
             Users users = new Users();
-            users.Name = name;
+            users.Name = UserName.getInstance();
             dBContext.Add(users);
             dBContext.SaveChanges();
         }

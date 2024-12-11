@@ -9,7 +9,7 @@ namespace Sokoban
         public DbSet<Users> Users { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP1;Database=Zoohotel;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Server=DESKTOP1;Database=Sokoban;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
 }

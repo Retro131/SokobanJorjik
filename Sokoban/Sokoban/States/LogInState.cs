@@ -15,13 +15,13 @@ namespace Sokoban.States
         public LogInState(Game1 game, ContentManager contentManager, GraphicsDevice graphics) : base(game, contentManager, graphics)
         {
             LoadContent();
-            
         }
         public override void LoadContent()
         {
             buttonTexture = _contentManager.Load<Texture2D>("ButtonContent/Button");
             buttonFont = _contentManager.Load<SpriteFont>("ButtonContent/ButtonFont");
-            var toMainMenu = CreateButton("Menu", new Vector2(10, 10));
+            var toMainMenu = CreateButton("Enter", new Vector2(650, 250));
+            string name = UserName.getInstance();
             toMainMenu.Click += ToMainMenu;
             buttons = new List<Button>()
             {
@@ -29,14 +29,22 @@ namespace Sokoban.States
             };
         }
 
+        protected override void ToMainMenu(object sender, EventArgs e)
+        {
+            Game1.db.Add();
+            base.ToMainMenu(sender, e);
+        }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.DrawString(buttonFont, "Sorry its not done, so only guests without name", new Vector2(650, 200), Color.Black);
             foreach (var button in buttons)
                 button.Draw(gameTime, spriteBatch);
         }
 
         public override void Update(GameTime gameTime)
         {
+            foreach (var button in buttons)
+                button.Update(gameTime);
         }
 
     }
