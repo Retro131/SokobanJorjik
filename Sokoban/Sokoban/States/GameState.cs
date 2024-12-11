@@ -17,21 +17,9 @@ namespace Sokoban
         private int fixedBoxes;
         private List<Button> buttons;
 
-
-        private Texture2D buttonTexture;
-        private SpriteFont buttonFont;
-
         public GameState(Game1 game, ContentManager contentManager, GraphicsDevice graphics) : base(game, contentManager, graphics)
         {
             LoadContent();
-            var skipLevel = new Button(buttonTexture, buttonFont, "Skip", new Vector2(100, 10));
-            skipLevel.Click += SkipLevel;
-            var toMainMenu = new Button(buttonTexture, buttonFont, "Menu", new Vector2(10, 10));
-            toMainMenu.Click += ToMainMenu;
-            buttons = new List<Button>()
-            {
-                toMainMenu,skipLevel
-            };
         }
         public override void LoadContent()
         {
@@ -41,6 +29,14 @@ namespace Sokoban
             _currentNode = _levelManager.Levels.First;
             _currentLevel = _currentNode.Value;
             _sprites = _currentLevel.Sprites;
+            var skipLevel = CreateButton("Skip", new Vector2(100, 10));
+            skipLevel.Click += SkipLevel;
+            var toMainMenu = CreateButton("Menu", new Vector2(10, 10));
+            toMainMenu.Click += ToMainMenu;
+            buttons = new List<Button>()
+            {
+                toMainMenu,skipLevel
+            };
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -62,6 +58,7 @@ namespace Sokoban
                 }
                 else
                 {
+                    Game1.db.AddToDb(_currentLevel);
                     _game.ChangeState(new MenuState(_game, _contentManager, _graphics));
                 }
             }
@@ -84,16 +81,14 @@ namespace Sokoban
                 fixedBoxes = 0;
             }
         }
-        private void ToMainMenu(object sender, EventArgs e)
-        {
-            _game.ChangeState(new MenuState(_game, _contentManager, _graphics));
-        }
         private void SkipLevel(object sender, EventArgs e)
         {
             _currentLevel.IsFinished = true; fixedBoxes = 0;
         }
         private void ChangeLevel()
         {
+            Game1.db.AddToDb(_currentLevel);
+
             _sprites.Clear();
             _currentLevel = _currentNode.Next.Value;
             _currentNode = _currentNode.Next;

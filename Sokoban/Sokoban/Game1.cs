@@ -1,10 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sokoban.States;
 
 namespace Sokoban
 {
     public class Game1 : Game
     {
+        public static readonly DBContext db = new DBContext();
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -24,6 +27,8 @@ namespace Sokoban
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            //db.Database.EnsureDeleted();
+            db.Database.EnsureCreated();
             _graphics.PreferredBackBufferWidth = 1450;
             _graphics.PreferredBackBufferHeight = 700;
             _graphics.ApplyChanges();
@@ -35,7 +40,7 @@ namespace Sokoban
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _backgroundTexture = Content.Load<Texture2D>("Background");
 
-            _currentState = new MenuState(this, Content, _graphics.GraphicsDevice);
+            _currentState = new LogInState(this, Content, _graphics.GraphicsDevice);
 
             
             // TODO: use this.Content to load your game content here
