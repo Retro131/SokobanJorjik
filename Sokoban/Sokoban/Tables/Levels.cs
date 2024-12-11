@@ -7,7 +7,7 @@ namespace Sokoban
         public int Id { get; set; }
         public int BoxCount { get; set; }
         public int TargetCount { get; set; }
-        public ICollection<Results>? Results { get; set; }
+        public ICollection<Results> Results { get; set; }
         public Levels()
         {
             Results = new List<Results>();

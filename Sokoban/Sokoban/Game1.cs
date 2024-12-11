@@ -27,7 +27,7 @@ namespace Sokoban
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            db.Database.EnsureDeleted();
+            //db.Database.EnsureDeleted();
             db.Database.EnsureCreated();
             _graphics.PreferredBackBufferWidth = 1450;
             _graphics.PreferredBackBufferHeight = 700;
