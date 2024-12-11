@@ -12,5 +12,11 @@ namespace Sokoban
         {
             Results = new List<Results>();
         }
+        public Levels(Level level)
+        {
+            BoxCount = level.BoxCount;
+            TargetCount = level.TargetCount;
+            Results = new List<Results>();
+        }
     }
 }
