@@ -8,16 +8,17 @@ namespace Sokoban
 {
     public class UserName
     {
-        private static UserName instance;
+        private static string Name;
 
         private UserName()
         { }
 
-        public static UserName getInstance()
+        public static string getInstance()
         {
-            if (instance == null)
-                instance = new UserName();
-            return instance;
+            Random random = new Random();
+            if (Name == null)
+                Name = "guest" + $"{random.NextDouble}";
+            return Name;
         }
     }
 }
