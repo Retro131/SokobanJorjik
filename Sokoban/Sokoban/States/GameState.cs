@@ -48,7 +48,7 @@ namespace Sokoban
                 sprite.Draw(spriteBatch);
             foreach (var button in buttons)
                 button.Draw(gameTime, spriteBatch);
-            spriteBatch.DrawString(buttonFont, $"Steps: {_currentLevel.TotalSteps}", new Vector2(_graphics.Viewport.Width/2,100), Color.Red);
+            spriteBatch.DrawString(buttonFont, $"Steps: {_currentLevel.TotalSteps}", new Vector2(_graphics.Viewport.Width/2,20), Color.Aquamarine);
         }
         public override void Update(GameTime gameTime)
         {
@@ -96,6 +96,7 @@ namespace Sokoban
         {
             _sprites.Clear();
             _currentLevel = _currentNode.Next.Value;
+            _currentNode = _currentNode.Next;
             _sprites = _currentLevel.Sprites;
         }
     }
