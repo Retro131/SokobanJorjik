@@ -12,9 +12,9 @@ namespace Sokoban
     {
         private List<Sprite> _sprites;
         private LevelManager _levelManager;
-        private LinkedListNode<Level> _currentLevel;
+        private LinkedListNode<Level> _currentNode;
+        private Level _currentLevel;
         private int fixedBoxes;
-        private bool IsFinished;
         private List<Button> buttons;
         public GameState(Game1 game, ContentManager contentManager, GraphicsDevice graphics) : base(game, contentManager, graphics)
         {
@@ -33,8 +33,9 @@ namespace Sokoban
         public override void LoadContent()
         {
             _levelManager = new LevelManager(_contentManager);
-            _currentLevel = _levelManager.Levels.First;
-            _sprites = _currentLevel.Value.Sprites;
+            _currentNode = _levelManager.Levels.First;
+            _currentLevel = _currentNode.Value;
+            _sprites = _currentLevel.Sprites;
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -47,13 +48,11 @@ namespace Sokoban
         {
             foreach (var button in buttons)
                 button.Update(gameTime);
-            if (_currentLevel.Value.IsFinished)
+            if (_currentLevel.IsFinished)
             {
-                if (_currentLevel.Next is not null)
+                if (_currentNode.Next is not null)
                 {
-                    _sprites.Clear();
-                    _currentLevel = _currentLevel.Next;
-                    _sprites = _currentLevel.Value.Sprites;
+                    ChangeLevel();
                 }
                 else
                 {
@@ -73,19 +72,25 @@ namespace Sokoban
                 foreach (var button in buttons)
                     button.Update(gameTime);
             }
-            if (fixedBoxes == _currentLevel.Value.BoxCount)
+            if (fixedBoxes == _currentLevel.BoxCount)
             {
-                _currentLevel.Value.IsFinished = true;
+                _currentLevel.IsFinished = true;
                 fixedBoxes = 0;
             }
         }
-        public void ToMainMenu(object sender, EventArgs e)
+        private void ToMainMenu(object sender, EventArgs e)
         {
             _game.ChangeState(new MenuState(_game, _contentManager, _graphics));
         }
-        public void SkipLevel(object sender, EventArgs e)
+        private void SkipLevel(object sender, EventArgs e)
         {
-            _currentLevel.Value.IsFinished = true; fixedBoxes = 0;
+            _currentLevel.IsFinished = true; fixedBoxes = 0;
+        }
+        private void ChangeLevel()
+        {
+            _sprites.Clear();
+            _currentLevel = _currentNode.Next.Value;
+            _sprites = _currentLevel.Sprites;
         }
     }
 }
