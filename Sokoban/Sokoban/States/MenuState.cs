@@ -11,9 +11,11 @@ namespace Sokoban
     public class MenuState : State
     {
         private List<Button> buttons;
-        private Texture2D buttonTexture;
-        private SpriteFont buttonFont;
         public MenuState(Game1 game, ContentManager contentManager, GraphicsDevice graphics) : base(game, contentManager, graphics)
+        {
+            LoadContent();
+        }
+        public override void LoadContent()
         {
             buttonTexture = _contentManager.Load<Texture2D>("ButtonContent/Button");
             buttonFont = _contentManager.Load<SpriteFont>("ButtonContent/ButtonFont");
@@ -34,10 +36,6 @@ namespace Sokoban
         {
             foreach(var button in buttons)
                 button.Draw(gameTime, spriteBatch);
-        }
-        public Button CreateButton(string Text, Vector2 Position)
-        {
-            return new Button(buttonTexture, buttonFont, Text, Position);
         }
         public override void Update(GameTime gameTime)
         {

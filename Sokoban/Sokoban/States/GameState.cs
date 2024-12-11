@@ -17,21 +17,9 @@ namespace Sokoban
         private int fixedBoxes;
         private List<Button> buttons;
 
-
-        private Texture2D buttonTexture;
-        private SpriteFont buttonFont;
-
         public GameState(Game1 game, ContentManager contentManager, GraphicsDevice graphics) : base(game, contentManager, graphics)
         {
             LoadContent();
-            var skipLevel = new Button(buttonTexture, buttonFont, "Skip", new Vector2(100, 10));
-            skipLevel.Click += SkipLevel;
-            var toMainMenu = new Button(buttonTexture, buttonFont, "Menu", new Vector2(10, 10));
-            toMainMenu.Click += ToMainMenu;
-            buttons = new List<Button>()
-            {
-                toMainMenu,skipLevel
-            };
         }
         public override void LoadContent()
         {
@@ -41,6 +29,15 @@ namespace Sokoban
             _currentNode = _levelManager.Levels.First;
             _currentLevel = _currentNode.Value;
             _sprites = _currentLevel.Sprites;
+
+            var skipLevel = CreateButton("Skip", new Vector2(100, 10));
+            skipLevel.Click += SkipLevel;
+            var toMainMenu = CreateButton("Menu", new Vector2(10, 10));
+            toMainMenu.Click += ToMainMenu;
+            buttons = new List<Button>()
+            {
+                toMainMenu,skipLevel
+            };
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {

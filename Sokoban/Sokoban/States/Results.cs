@@ -12,25 +12,20 @@ namespace Sokoban
     public class ResultsState : State
     {
         private List<Button> buttons;
-
-        private Texture2D buttonTexture;
-        private SpriteFont buttonFont;
-
         public ResultsState(Game1 game, ContentManager contentManager, GraphicsDevice graphics) : base(game, contentManager, graphics)
         {
             LoadContent();
+        }
+        public override void LoadContent()
+        {
+            buttonTexture = _contentManager.Load<Texture2D>("ButtonContent/Button");
+            buttonFont = _contentManager.Load<SpriteFont>("ButtonContent/ButtonFont");
             var toMainMenu = new Button(buttonTexture, buttonFont, "Menu", new Vector2(10, 10));
             toMainMenu.Click += ToMainMenu;
             buttons = new List<Button>()
             {
                 toMainMenu,
             };
-        }
-        public override void LoadContent()
-        {
-            buttonTexture = _contentManager.Load<Texture2D>("ButtonContent/Button");
-            buttonFont = _contentManager.Load<SpriteFont>("ButtonContent/ButtonFont");
-
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -41,10 +36,8 @@ namespace Sokoban
 
         public override void Update(GameTime gameTime)
         {
-        }
-        private void ToMainMenu(object sender, EventArgs e)
-        {
-            _game.ChangeState(new MenuState(_game, _contentManager, _graphics));
+            foreach (var button in buttons)
+                button.Update(gameTime);
         }
     }
 }
