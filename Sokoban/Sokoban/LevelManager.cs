@@ -16,6 +16,10 @@ namespace Sokoban
                 Levels.AddLast(new Level(index, level,contentManager));
                 index++;
             }
+            foreach(var level in Levels)
+            {
+                Game1.db.AddToDb(level);
+            }
         }
         public void AddLevel() { }
         public void RemoveLevel() { }
