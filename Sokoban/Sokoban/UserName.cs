@@ -13,11 +13,19 @@ namespace Sokoban
         private UserName()
         { }
 
-        public static string getInstance()
+        public static string setInstance(string name)
         {
             Random random = new Random();
             if (Name == null)
-                Name = "guest" + $"{random.NextDouble}";
+                if(name == null)
+                    Name = "guest" + $"{random.NextInt64()}";
+                else
+                    Name = name;
+
+            return Name;
+        }
+        public static string getInstance()
+        {
             return Name;
         }
     }

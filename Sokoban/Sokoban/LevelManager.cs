@@ -6,7 +6,7 @@ namespace Sokoban
 {
     public class LevelManager
     {
-        public LinkedList<Level> Levels;
+        public static LinkedList<Level> Levels;
         public LevelManager(ContentManager contentManager)
         {
             var index = 1;
@@ -21,7 +21,14 @@ namespace Sokoban
                 Game1.db.AddToDb(level);
             }
         }
-        public void AddLevel() { }
-        public void RemoveLevel() { }
+        public static void AddLevel(Level level) 
+        {
+            Levels.AddLast(level);
+        }
+  
+        public static LinkedList<Level> GetLevels() 
+        {
+            return Levels;
+        }
     }
 }
