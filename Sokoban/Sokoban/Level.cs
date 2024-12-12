@@ -28,6 +28,10 @@ namespace Sokoban
             this.TargetCount = TargetCount;
             this.Sprites = GenerateLevel(50, mapInText, boxTexture, playerTexture, targetTexture, wallTexture);
         }
+        public Level(int Id)
+        {
+            this.Id = Id;
+        }
         List<Sprite> GenerateLevel(int cellSize, string[,] levelGrid, Texture2D boxTexture, Texture2D playerTexture, Texture2D targetTexture, Texture2D wallTexture)
         {
             List<Sprite> levelSprites = new List<Sprite>();

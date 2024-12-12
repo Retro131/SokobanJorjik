@@ -26,7 +26,7 @@ namespace Sokoban
             buttonTexture = _contentManager.Load<Texture2D>("ButtonContent/Button");
             buttonFont = _contentManager.Load<SpriteFont>("ButtonContent/ButtonFont");
             _levelManager = new LevelManager(_contentManager);
-            _currentNode = _levelManager.Levels.First;
+            _currentNode = LevelManager.GetLevels().First;
             _currentLevel = _currentNode.Value;
             _sprites = _currentLevel.Sprites;
             var skipLevel = CreateButton("Skip", new Vector2(100, 10));

@@ -57,8 +57,9 @@ namespace Sokoban
             {
                 IsHovering = true;
 
-                if(currentState.LeftButton == ButtonState.Released && previousState.LeftButton == ButtonState.Pressed)
+                if (currentState.LeftButton == ButtonState.Released && previousState.LeftButton == ButtonState.Pressed)
                     Click?.Invoke(this, new EventArgs());
+
             }
 
         }

@@ -32,6 +32,18 @@ namespace Sokoban
         {
             foreach(var button in buttons)
                 button.Draw(gameTime,spriteBatch);
+            var i = 0;
+            foreach(var info in Game1.db.Results)
+            {
+                var UserId = info.UserId;
+                var LevelId = info.LevelId;
+                spriteBatch.DrawString(buttonFont, info.Id.ToString(), new Vector2(500, 200 + i), Color.AliceBlue);
+                spriteBatch.DrawString(buttonFont, info.Users.Name, new Vector2(550, 200 + i), Color.AliceBlue);
+                spriteBatch.DrawString(buttonFont, LevelId.ToString(), new Vector2(650, 200 + i), Color.AliceBlue);
+                spriteBatch.DrawString(buttonFont, info.Steps.ToString(), new Vector2(700, 200 + i), Color.AliceBlue);
+                spriteBatch.DrawString(buttonFont, info.date.ToString(), new Vector2(750, 200 + i), Color.AliceBlue);
+                i += 20;
+            }
         }
 
         public override void Update(GameTime gameTime)

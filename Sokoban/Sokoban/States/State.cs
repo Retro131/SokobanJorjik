@@ -1,14 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using System.Net;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Sokoban
 {
@@ -26,10 +19,7 @@ namespace Sokoban
             _graphics = graphics;
             _game = game;
         }
-        public virtual void LoadContent()
-        {
-
-        }
+        public abstract void LoadContent();
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         public abstract void Update(GameTime gameTime);
         protected virtual void ToMainMenu(object sender, EventArgs e)

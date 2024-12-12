@@ -7,9 +7,9 @@ namespace Sokoban
 {
     public class Player : Sprite
     {
-        private Level _level;
+        protected Level _level;
         private Vector2 _previousPosition;
-        private InputHandler controlKeys = new InputHandler();
+        protected InputHandler controlKeys = new InputHandler();
 
         public Player(Texture2D texture, Vector2 position, Color color, Level level) : base(texture, position, color)
         {
@@ -53,7 +53,7 @@ namespace Sokoban
             }
             return true;
         }
-        private Vector2 GetNewPosition()
+        protected Vector2 GetNewPosition()
         {
             var newPos = Position;
             controlKeys.Update();
